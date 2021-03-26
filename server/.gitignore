@@ -1,0 +1,7 @@
+#IGNORE FOLLOWING
+
+# ENVIRONMENT FILES
+.env
+
+# MODULE FOLDERS
+node_modules/
