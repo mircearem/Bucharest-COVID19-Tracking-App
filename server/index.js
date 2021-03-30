@@ -12,7 +12,9 @@ const app = express();
 
 app.use(express.json());
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:8080'
+}));
 app.use(morgan('tiny'));
 
 app.get('/', (req,res) => {
@@ -21,7 +23,7 @@ app.get('/', (req,res) => {
   });
 });
 
-app.get('/cases/get', (req,res) => {
+app.post('/cases/get/interval', (req,res) => {
   const validation = findSchema.validate(req.body);
   if( !validation.error ){
     const fromDate = new Date(Number(req.body.fromDate) * 1000);
@@ -41,6 +43,17 @@ app.get('/cases/get', (req,res) => {
       error: validation.error.details[0].message
     });
   }
+});
+
+app.get('/cases/get/all', (req,res) => {
+  infections.find({}, (err, data) => {
+    if (err){
+      res.status(422);
+      res.json('Database error');
+      return;
+    }
+    res.json(data);
+  });
 });
 
 app.post('/cases/add', (req,res) => {
