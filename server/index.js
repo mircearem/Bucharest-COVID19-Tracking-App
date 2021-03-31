@@ -46,7 +46,7 @@ app.post('/cases/get/interval', (req,res) => {
 });
 
 app.get('/cases/get/all', (req,res) => {
-  infections.find({}, (err, data) => {
+  infections.find({}).sort({timestamp: 1}).exec((err, data) => {
     if (err){
       res.status(422);
       res.json('Database error');
