@@ -2,7 +2,6 @@ const { wait, findSchema, returnDateArray, scrapeCovidCases } = require('../util
 const { infections }  = require('../db');
 
 const getCasesByInterval = (req, res) => {
-  console.log(req.body);
   const validation = findSchema.validate(req.body);
   if( !validation.error ){
     const fromDate = new Date(Number(req.body.fromDate) * 1000);
